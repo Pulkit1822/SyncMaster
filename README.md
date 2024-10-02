@@ -2,7 +2,6 @@
   <a href="https://github.com/Pulkit1822/SyncMaster">
     <img src="https://github.com/Pulkit1822/Pulkit1822/blob/main/animated-icons/logo.jpg" height="128">
   </a>
-  <h1 align="center">SyncMaster</h1>
 </p>
 
 
