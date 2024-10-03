@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        This is a simple HTML template for a web page that will be used to
+        interact with the syncmaster Sync application. The application will
+        allow users to input a Google Sheet ID, and then sync the data from
+        the sheet to a MySQL database.
+
+        The template includes a few forms for submitting data to the
+        application. The first form is for submitting a Google Sheet ID,
+        which will trigger the application to sync the data from the sheet
+        to the database. The second form is for adding new data to the
+        database. The third form is for triggering a sync from the Google
+        Sheet to the database.
+
+        The template also includes a table for displaying the current data
+        in the database.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>syncmaster</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            /* Animate the header text to fade in from the top */
+            animation: fadeInDown 1s;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            /* Animate the forms to fade in from the bottom */
+            animation: fadeInUp 1s;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            width: 100%;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                /* Move the element 20px up */
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                /* Move the element to its original position */
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                /* Move the element 20px down */
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                /* Move the element to its original position */
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!--
+            This is the main header of the page. It will display the title
+            "syncmaster Sync".
+        -->
+        <h1>syncmaster</h1>
+        <!--
+            This form is for submitting a Google Sheet ID. When the form is
+            submitted, the application will sync the data from the sheet to
+            the database.
+        -->
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="sheet_id">Google Sheet ID:</label>
+                <input type="text" class="form-control" id="sheet_id" name="sheet_id" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Sync</button>
+        </form>
+        <!--
+            This form is for adding new data to the database. When the form is
+            submitted, the application will add the data to the database.
+        -->
+        <form method="POST" action="/add">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="value">Value:</label>
+                <input type="text" class="form-control" id="value" name="value" required>
+            </div>
+            <button type="submit" class="btn btn-success">Add Data</button>
+        </form>
+        <!--
+            This form is for triggering a sync from the Google Sheet to the
+            database. When the form is submitted, the application will sync
+            the data from the sheet to the database.
+        -->
+        <form method="POST" action="/sync">
+            <button type="submit" class="btn btn-warning">Sync from Google Sheet</button>
+        </form>
+        <!--
+            This table will display the current data in the database.
+        -->
+        <h2>Current Data</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--
+                    This loop will iterate over the rows in the database and
+                    display them in the table.
+                -->
+                {% for row in rows %}
+                <tr>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[0] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
